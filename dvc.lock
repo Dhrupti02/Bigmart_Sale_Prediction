@@ -45,3 +45,61 @@ stages:
     - path: data/processed/train_data.csv
       md5: c5da5cd16749d055d368a34b9d9c0571
       size: 622751
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test_data.csv
+      md5: f1e244022ecceaf0b529daf9d6bbdcfa
+      size: 155933
+    - path: data/processed/train_data.csv
+      md5: c5da5cd16749d055d368a34b9d9c0571
+      size: 622751
+    - path: src/train_and_evaluate.py
+      md5: bba5cbf4870571f337db06561d737ff9
+      size: 3985
+    params:
+      params.yaml:
+        estimators.RandomForestRegressor.params.max_depth:
+        - 5
+        - 10
+        - 15
+        - 20
+        - 25
+        - 30
+        estimators.RandomForestRegressor.params.max_features:
+        - 1.0
+        - sqrt
+        estimators.RandomForestRegressor.params.min_samples_leaf:
+        - 1
+        - 2
+        - 5
+        - 10
+        estimators.RandomForestRegressor.params.min_samples_split:
+        - 2
+        - 5
+        - 10
+        - 15
+        - 100
+        estimators.RandomForestRegressor.params.n_estimators:
+        - 100
+        - 200
+        - 300
+        - 400
+        - 500
+        - 600
+        - 700
+        - 800
+        - 900
+        - 1000
+        - 1100
+        - 1200
+    outs:
+    - path: report/params.json
+      md5: 296d6c4b3604d0ddda9dd03895efa20d
+      size: 551
+    - path: report/scores.json
+      md5: 7865cb2591cbb92e5dd81346620d45f2
+      size: 100
+    - path: saved_models/model.joblib
+      md5: 02a5285b76ea0413cfa84f7881436144
+      size: 35047972
