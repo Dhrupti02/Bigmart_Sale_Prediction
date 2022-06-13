@@ -5,3 +5,4 @@ category_encoders
 pytest
 tox
 flake8
+flask
