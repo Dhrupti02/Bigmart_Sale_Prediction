@@ -2,3 +2,5 @@ dvc
 sklearn
 pandas 
 category_encoders
+pytest
+tox
