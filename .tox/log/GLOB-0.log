@@ -1,6 +1,6 @@
 action: GLOB, msg: packaging
 cwd: D:\Internshipp\Bigmart_Sale_Prediction
-cmd: 'C:\Users\DHRUPTI PATEL\anaconda3\envs\BigmartSalePrediction\python.exe' setup.py sdist --formats=zip --dist-dir 'D:\Internshipp\Bigmart_Sale_Prediction\.tox\dist'
+cmd: 'C:\Users\DHRUPTI PATEL\anaconda3\envs\BigmartSalePrediction\python.exe' setup.py sdist --formats=zip --dist-dir '.tox\dist'
 running sdist
 running egg_info
 writing src.egg-info\PKG-INFO
@@ -30,8 +30,7 @@ copying tests\__init__.py -> src-0.0.1\tests
 copying tests\conftest.py -> src-0.0.1\tests
 copying tests\test_config.py -> src-0.0.1\tests
 Writing src-0.0.1\setup.cfg
-creating D:\Internshipp\Bigmart_Sale_Prediction\.tox\dist
-creating 'D:\Internshipp\Bigmart_Sale_Prediction\.tox\dist\src-0.0.1.zip' and adding 'src-0.0.1' to it
+creating '.tox\dist\src-0.0.1.zip' and adding 'src-0.0.1' to it
 adding 'src-0.0.1'
 adding 'src-0.0.1\src'
 adding 'src-0.0.1\src.egg-info'
