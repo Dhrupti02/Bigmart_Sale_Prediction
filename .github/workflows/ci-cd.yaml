@@ -1,4 +1,4 @@
-name: Python application
+name: Bigmart sales application
 
 on:
   push:
