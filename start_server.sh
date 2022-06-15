@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ec2-user
 source environment/bin/activate
-supervisor supervisord.conf
+supervisord -c supervisord.conf
