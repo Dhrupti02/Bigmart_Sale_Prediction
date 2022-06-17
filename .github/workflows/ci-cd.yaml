@@ -77,7 +77,7 @@ jobs:
         id: deploy
         run: |
           aws deploy create-deployment \
-            --application-name StoreSalesPrediction \
-            --deployment-group-name StoreSalesPredictors \
+            --application-name SalesPrediction \
+            --deployment-group-name SalesPredictor \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
