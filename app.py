@@ -48,6 +48,7 @@ def api_response(request):
 def index():
     logger = logging.getLogger("predict")
     if request.method == "POST":
+        try:
         
             if request.form:
                 Item_Identifier = request.form['Item_Identifier']
@@ -106,8 +107,13 @@ def index():
                 response = api_response(request)
                 return jsonify(response)
 
-            
-            else:
+        except Exception as e:
+            logger.error(e)
+            error = {"error": "Something went wrong!! Try again later!"}
+            error = {"error": e}
+
+            return render_template("404.html", error=error)
+        else:
                 logger.info('> Invalid data')
 
         
