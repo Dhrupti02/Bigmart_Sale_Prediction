@@ -28,16 +28,68 @@ def predict(data):
     model_dir_path = config["webapp_model_dir"]
     model = joblib.load(model_dir_path)
     prediction = model.predict(data)
+    predictions = np.exp(prediction)
     logger.info('> %f' % prediction)
-    return prediction 
+    return predictions 
 
 def api_response(request):
     logger = logging.getLogger("predict")
     try:
         data = np.array([list(request.json.values())])
-        response = predict(data)
-        response = {"response":response}
-        return response
+    
+        Item_Identifier = data[0][0]
+        Item_Visibility = data[0][1]
+        Item_MRP = data[0][2]
+        Outlet_Establishment_Year = data[0][3]
+        Outlet_Identifier = data[0][4]
+        Outlet_Type = data[0][5]
+
+        d2 = json.load(open("data/dictd.txt"))
+        Item_Identifier = d2[Item_Identifier]
+
+
+        if Outlet_Identifier == 'OUT018':
+            Outlet_Identifier_OUT018 = 1
+            Outlet_Identifier_OUT027 = 0	
+            Outlet_Identifier_OUT045 = 0
+        elif Outlet_Identifier == 'OUT027':
+            Outlet_Identifier_OUT018 = 0
+            Outlet_Identifier_OUT027 = 1	
+            Outlet_Identifier_OUT045 = 0
+        elif Outlet_Identifier == 'OUT045':
+            Outlet_Identifier_OUT018 = 0
+            Outlet_Identifier_OUT027 = 0	
+            Outlet_Identifier_OUT045 = 1
+        else:
+            Outlet_Identifier_OUT018 = 0
+            Outlet_Identifier_OUT027 = 0	
+            Outlet_Identifier_OUT045 = 0
+        
+
+        if Outlet_Type == 'Supermarket Type1':
+            Outlet_Type_Supermarket_Type1 = 1
+            Outlet_Type_Supermarket_Type2 = 0
+            Outlet_Type_Supermarket_Type3 = 0
+        elif Outlet_Type == 'Supermarket Type2':
+            Outlet_Type_Supermarket_Type1 = 0
+            Outlet_Type_Supermarket_Type2 = 1
+            Outlet_Type_Supermarket_Type3 = 0
+        elif Outlet_Type == 'Supermarket Type3':
+            Outlet_Type_Supermarket_Type1 = 0
+            Outlet_Type_Supermarket_Type2 = 0
+            Outlet_Type_Supermarket_Type3 = 1
+        else:
+            Outlet_Type_Supermarket_Type1 = 0
+            Outlet_Type_Supermarket_Type2 = 0
+            Outlet_Type_Supermarket_Type3 = 0
+
+        dataa = [[Item_Identifier, Item_Visibility, Item_MRP, Outlet_Establishment_Year, Outlet_Identifier_OUT018, Outlet_Identifier_OUT027,
+                         Outlet_Identifier_OUT045, Outlet_Type_Supermarket_Type1, Outlet_Type_Supermarket_Type2, Outlet_Type_Supermarket_Type3]]
+        
+        response = predict(dataa)
+        json_str = json.dumps({'nums': response.tolist()})
+        
+        return json_str
     except Exception as e:
         logger.info('> %s' % e)
         error = {"error":"Something went wrong!! Try again"}
@@ -105,6 +157,7 @@ def index():
             
             elif request.json:
                 response = api_response(request)
+                
                 return jsonify(response)
 
         except Exception as e:
