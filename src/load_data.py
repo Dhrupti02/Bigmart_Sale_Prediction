@@ -4,6 +4,8 @@ import os
 from get_data import read_params, get_data
 import argparse
 
+''' This will load data from the given path in the config_path. '''
+
 def load_and_save(config_path):
     config = read_params(config_path)
     df = get_data(config_path)
